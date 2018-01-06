@@ -1,7 +1,11 @@
 HW6
 
 Cкрипты
-gcp_create_instances.sh - создание VM
+gcp_create_instances.sh - создание VM, buket, правил фаервола, стартового скрипта
+deploy.sh - деплой приложения
+install_mongodb.sh - установка mongodb
+install_ruby.sh - установка ruby
+startup_script.sh - стартовый скрипт VM
 
 1. Варианты подключения скрипта автозапуска при поднятии сети:
 
@@ -10,7 +14,8 @@ gcp_create_instances.sh - создание VM
  1.2 Выполняем скрипт с Gist. Нужно указывать путь до RAW формата:
  gcloud --metadata startup-script='wget -O - path_to_script/raw/script.sh | bash'
 
- 1.3 Выполняем скрипт с URL baket или git (raw), gs через опцию --metadata \ startup-script-url=gs://url_baket/startup_script.sh
+ 1.3 Выполняем скрипт с URL baket или git (raw), gs через опцию --metadata \
+ startup-script-url=gs://url_baket/startup_script.sh
 
  2. Управление правилами фаервола
 
