@@ -1,5 +1,6 @@
 #!/bin/bash
 #Создание basket и копирование в него скрипта автозапуска VM
+set -e
 gsutil mb gs://isaidashev-test
 cat<<EOF > startup_script.sh
 #./install_ruby.sh
