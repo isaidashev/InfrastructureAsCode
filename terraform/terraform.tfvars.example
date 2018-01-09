@@ -1,0 +1,4 @@
+project = ""
+region = "europe-west1"
+public_key_path = "~/.ssh/appuser.pub"
+disk_image = "reddit-full"
