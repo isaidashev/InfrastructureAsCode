@@ -35,7 +35,7 @@ resource "google_compute_instance" "app" {
 
   metadata {
     #Добавление публичного ключа к инстансу
-    ssh-keys = "appuser:${file(var.public_key_path)}"
+    ssh-keys = "appuser:${file(var.public_key_path)}\nappuser1:${file(var.public_key_path)}"
   }
 
   #Определение подключения для provisioner
