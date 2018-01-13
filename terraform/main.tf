@@ -5,10 +5,11 @@ provider "google" {
   region  = "${var.region}"
 }
 
-#resource "google_compute_project_metadata" "ssh_keys" {
-#   metadata {
-#     ssh-keys = "appuser:${file("~/.ssh/appuser.pub")}"
-#}
+resource "google_compute_project_metadata" "ssh_keys" {
+  metadata {
+    ssh-keys = "appuser1:${file("~/.ssh/appuser.pub")}\nappuser2:${file(var.public_key_path)}"
+  }
+}
 
 resource "google_compute_instance" "app" {
   name = "reddit-app"
