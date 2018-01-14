@@ -1,5 +1,5 @@
 ---
-#HW8
+# HW8
 ---
 
 Работа с терраформ:
@@ -10,12 +10,12 @@ main.tf - основной конфиг
 variables.tf - определение Input переменых, если прописать переменые в специальном файле terraform.tfvars будет брать там
 output.tf - вывод значений переменых в удобновм виде а так же для использования в дальнейшем.  Значения выводятся после каждого применения terraform apply или можно посмотреть terraform show. Чтобы новой output переменой присвоилось значение необходимо выполнить terraform refresh
 
-###Проблемы:
+### Проблемы:
 
 Для того чтобы пробросить публичный ключ SSH нужно использовать значение ssh-keys а не sshKeys.
 Так я использовать образ с уже установленым приложением reddit выдавалась ошибка при клонировании в скрипте deploy.sh. Проcто закоментил данную строку c gitclone.
 
-##ДЗ*
+## ДЗ*
 
 1. Для добавления нескольких ключей использовал \n для разделения:
 ```
@@ -31,7 +31,7 @@ ssh-keys = "appuser:${file(var.public_key_path)}\nappuser1:${file(var.public_key
 * Для создание HTTP балансировщика необходимо тщательно читать [доки](https://cloud.google.com/compute/docs/load-balancing/http/). Очень помогает пример из [git](https://github.com/terraform-providers/terraform-provider-google/blob/master/examples/shared-vpc/main.tf)
 
 ---
-#HW7
+# HW7
 ---
 Переменые определяются в секции "variables": {} которые можно определить через команду packer build -var 'variable=foo'.
 Так же переменую можно определить в файле и подключить опцией packer build var-file='path_to_file.json'. Файл имеет формат:
