@@ -11,3 +11,18 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+User=appuser
+WorkingDirectory=/home/appuser/reddit
+ExecStart=/home/appuser/.rbenv/bin/rbenv exec bundle exec puma -C /home/appuser/app/shared/config/puma.rb
+ExecStop=/home/appuser/.rbenv/bin/rbenv exec bundle exec pumactl -S /home/appuser/app/shared/tmp/pids/puma.state stop
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
