@@ -12,11 +12,6 @@ module "app" {
   #private_key_path = "${var.private_key_path}"
   zone           = "${var.zone}"
   app-disk-image = "${var.app-disk-image}"
-
-  #machine_type = "g1-small"
-  #firewall_puma_port = ["9292"]
-  # source_ranges = ["0.0.0.0/0"]
-  # target_tags = "${local.access_db_tags}"
 }
 
 module "db" {
@@ -24,11 +19,6 @@ module "db" {
   public_key_path = "${var.public_key_path}"
   zone            = "${var.zone}"
   db-disk-image   = "${var.db-disk-image}"
-
-  # machine_type = "g1-small"
-  # firewall_mongo_port = ["27017"]
-  # source_tags = "${local.access_db_tags}"
-  # target_tags = ["reddit-db"]
 }
 
 module vpc {
@@ -37,5 +27,6 @@ module vpc {
   ports    = "22;2222"
 
   #allow ip adress throw modules
-  source_ranges = ["0.0.0.0/0"]
+
+  source_ranges = ["93.157.234.154/32"]
 }
