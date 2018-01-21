@@ -1,5 +1,76 @@
 ---
-HW8
+HW10
+---
+
+### Установка Ansible на Mac:
+```
+brew install ansinle
+```
+```
+pip install ansible
+```
+### Конфигурация
+На VM должны присутствовать публичные ключи SSH.
+Хосты и группы  хостов, которыми Ansible должен управлять, описываются в инвентори файле:
+
+Пример:
+```
+appserver ansible_host=35.195.186.15 ansible_user=appuser ansible_private_key_file=~/.ssh/appuser
+```
+Вызываем:
+```
+ansible appserver -i ./inventory -m ping
+```
+Чтобы каждый раз не прописывать некоторые параметры можно определить их в файле ansible.cfg и больше не прописывать в файле inventory:
+```
+[defaults]
+inventory = ./inventory                
+remote_user = appuser    
+private_key_file = ~/.ssh/appuser
+host_key_checking = False
+```
+Файл inventory может быть в ini, yml, json форматах.
+
+Интересные модули:
+* command - выполнение команд на удаленном хосте без использования shell:
+```
+ansible app -m command -a 'bundler -v'
+```
+* shell - выполнение команд с использованием shell:
+```
+ansible app -m shell -a 'ruby -v; bundler -v'
+```
+* systemd - управление сервисами:
+```
+ansible db -m systemd -a name=mongod
+```
+* service - более универсальный способ управления сервисов:
+```
+ansible db -m service -a name=mongod
+```
+git - работа с GIT:
+```
+ansible app -m git -a 'repo=https://github.com/Otus-DevOps-2017-11/reddit.git dest=/home/appuser/reddit'
+```
+
+
+### ДЗ*
+
+Конвертировал yml в json с помощью python утилиты yml2json.
+
+---
+# HW9
+---
+1. Выполнил все базовые задания. Настроил модули для создания инстансов приложений и баз данных.
+2. Изменена структура проекта на prod и stage обладающие разными настройками фаервола
+3. Создан локальный модуль VPC для переприменения настроек фаервола.
+5. Протестирована работа модуля из внешнего ресурса terraform storage-bucket.
+
+* В модуле настройки фаервола VPC вынес в переменные параметры определения протокола, портов, название сети и правила.
+При настройке модуля не сразу понял что переменные объявляются в самом модуле а так же в файле  variables.tf а потом могут определятся в основном.
+* При определении backet нужно следить за уникальностью имени
+---
+# HW8
 ---
 
 Работа с терраформ:
@@ -10,14 +81,29 @@ main.tf - основной конфиг
 variables.tf - определение Input переменых, если прописать переменые в специальном файле terraform.tfvars будет брать там
 output.tf - вывод значений переменых в удобновм виде а так же для использования в дальнейшем.  Значения выводятся после каждого применения terraform apply или можно посмотреть terraform show. Чтобы новой output переменой присвоилось значение необходимо выполнить terraform refresh
 
-Проблемы:
+### Проблемы:
 
 Для того чтобы пробросить публичный ключ SSH нужно использовать значение ssh-keys а не sshKeys.
 Так я использовать образ с уже установленым приложением reddit выдавалась ошибка при клонировании в скрипте deploy.sh. Проcто закоментил данную строку c gitclone.
 
+## ДЗ*
 
-HW7
+1. Для добавления нескольких ключей использовал \n для разделения:
+```
+ssh-keys = "appuser:${file(var.public_key_path)}\nappuser1:${file(var.public_key_path)}"
+```
+Данный способ будет неудобен когда ключей будет больше. Как вариант можно выкрутиться через переменые или модуль для ssh
+[userkeymodule](./terraform/modules/userkeymodule)
 
+Ключи добавленые через web интерфейс затираются!!!
+
+2. Выполнил второе задание:
+* Количество инстанствов можно регулировать удобно через `count`
+* Для создание HTTP балансировщика необходимо тщательно читать [доки](https://cloud.google.com/compute/docs/load-balancing/http/). Очень помогает пример из [git](https://github.com/terraform-providers/terraform-provider-google/blob/master/examples/shared-vpc/main.tf)
+
+---
+# HW7
+---
 Переменые определяются в секции "variables": {} которые можно определить через команду packer build -var 'variable=foo'.
 Так же переменую можно определить в файле и подключить опцией packer build var-file='path_to_file.json'. Файл имеет формат:
 {
