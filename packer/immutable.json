@@ -1,8 +1,8 @@
 {
   "variables": {
-          "project_id": "null",
-          "source_image_family": "null",
-          "machine_type": "f1-micro"
+          "project_id": null,
+          "source_image_family": null,
+          "machine_type": null
               },
   "builders": [
     {
@@ -22,6 +22,11 @@
     }
   ],
   "provisioners": [
+    {
+      "type": "file",
+      "source": "files/puma.service",
+      "destination": "/tmp/puma.service"
+    },
     {
       "type": "shell",
       "script": "scripts/install_ruby.sh",
