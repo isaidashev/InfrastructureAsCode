@@ -24,7 +24,7 @@ module "db" {
 module vpc {
   source   = "../modules/vpc"
   protocol = "tcp"
-  ports    = "22;2222"
+  ports    = "22"
 
   #allow ip adress throw modules
 
