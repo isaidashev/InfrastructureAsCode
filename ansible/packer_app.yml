@@ -1,0 +1,12 @@
+- name: Deploy application
+  hosts: all
+  become: true
+  tasks:
+    - name: Install ruby and Bundler
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - ruby-full
+        - ruby-bundler
+        - build-essential
