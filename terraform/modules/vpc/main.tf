@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "firewall_ssh" {
   description = "My Describtion"
-  name        = "${var.firewall_ssh}"
+  name        = "${var.name_rule}"
 
   # Название сети, в которой действует правило
   network = "${var.network_name}"

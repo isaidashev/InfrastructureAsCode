@@ -3,7 +3,7 @@ variable source_ranges {
   default     = ["0.0.0.0/0"]
 }
 
-variable firewall_ssh {
+variable name_rule {
   description = "Name for ssh allow rule"
   default     = "default-allow-addres"
 }
