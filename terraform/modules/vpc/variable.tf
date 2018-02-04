@@ -1,22 +1,22 @@
-variable "source_ranges" {
+variable source_ranges {
   description = "Allowed IP addresses"
   default     = ["0.0.0.0/0"]
 }
 
-variable firewall_ssh {
+variable name_rule {
   description = "Name for ssh allow rule"
-  default     = "default-allow-ssh"
+  default     = "default-allow-addres"
 }
 
 variable network_name {
   description = "Name for used network"
-  default     = "allow-ssh-default"
+  default     = "default"
 }
 
 variable "protocol" {
   default = "tcp"
 }
 
-variable "ports" {
+variable ports {
   description = "Port for open"
 }

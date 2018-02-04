@@ -21,10 +21,21 @@ module "db" {
   db-disk-image   = "${var.db-disk-image}"
 }
 
-module vpc {
+module "vpc" {
   source   = "../modules/vpc"
   protocol = "tcp"
-  ports    = "22;2222"
+  ports    = "22"
+
+  #allow ip adress throw modules
+
+  source_ranges = ["93.157.234.154/32"]
+}
+
+module "vpc2" {
+  name_rule = "http-allow"
+  source    = "../modules/vpc"
+  protocol  = "tcp"
+  ports     = "80"
 
   #allow ip adress throw modules
 
