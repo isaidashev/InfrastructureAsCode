@@ -1,4 +1,65 @@
 ---
+HW13
+---
+
+1. Локальная разработка при помощи Vagrant  
+* Конфигурация Vagrant в ansible/Vagranfile. Этот файл нужно располагать в корне разрабатываемого проекта.
+ Vagrant умеет работать со многими провиженерами в том числе с ansible.
+
+## Команды:
+`vagrant up` - создание виртуалок
+`vagrant box list` - список образов
+`vagrant status` - список запущеных виртуальных машин
+`vagrant ssh` - подключение к виртуалке
+`vagrant provisioner` - запуск провижен на работающей машине
+`vagrant destroy -f` - удаление созданых машин
+
+[Vagrant Cloud](https://app.vagrantup.com/boxes) - место хранение образов
+
+2. Доработка ролей для провижининга в Vagrant
+
+* Добавил еще один плейбук base.yml с установкой python с помощью модуля RAW
+* Добавлен плайбук установки БД MongoDB install_mongo.yml
+* config_mongo.yml - управление конфигурацией монги
+* ruby.yml -  установка ruby
+* Vagrant динамически генерирует инвентори файл для провижининга в соответствии с конфигурацией в Vagrantfile:
+`ansible.groups = {
+"app" => ["appserver"],
+"app:vars" => { "db_host" => "10.10.10.10"}
+}
+` - создается группа app c хостом appserver
+Инвентори файл генерируется .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory
+* Параметизирован puma.yml и deploy.yml для передачи имени пользователя в шаблон. Значение передаем через указания в конфиге  Vagrant:
+
+`ansible.extra_vars = {
+  "deploy_user" => "vagrant"}`
+
+3. Тестирование ролей при помощи Molecule и Testinfra
+
+* Установил Molecule, Ansible, Testinfra с помощью pip. Для этого было создано окружение virtualenv.
+
+- В папке с проектом выполняем `virtualenv my_project` после чего будет создана папка
+- `virtualenv -p /usr/bin/python2.7 my_project` - выбрать версию python
+- `source my_project/bin/activate` - активация окружения
+- `pip install -r requirements.txt` - установка зависимостей
+
+* Настройка Molecule `molecule init scenario --scenario-name default -r db -d vagrant`
+- db/molecule/default/tests/test_default.py - описание тестов
+- db/molecule/default/molecule.yml - описание тестовой VM.
+- db/molecule/default/playbook.yml - плейбук
+
+## Команды
+- `molecule create` - создание VM
+- `molecule list` - список инстансов
+- `molecule login -h instance` - подключение по SSH
+- `molecule converge` - применение конфигурации
+- `molecule verify` - прогон теста
+
+4. Переключение сбора образов пакером на использование ролей
+
+* Использовал роли db и app и поправил чтобы работало. Была проблема что ansible не понимал где лежит роль. Исправляется через `"ansible_env_vars": ["ANSIBLE_ROLES_PATH={{ pwd }}/ansible/roles"]`
+
+---
 HW12
 ---
 
@@ -259,5 +320,4 @@ ssh somehost
 Подключаемся ssh somehost
 
 3. Хостbastion, IP: 35.205.102.238, внутр. IP: 10.132.0.2
-   Хост: someinternalhost, внутр. IP: 10.132.0.3 
-   
+   Хост: someinternalhost, внутр. IP: 10.132.0.3

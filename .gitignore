@@ -6,3 +6,13 @@
 *.retry
 *.pem
 jdauphant.nginx
+
+# Vagrant & molecule
+.vagrant/
+*.log
+*.pyc
+.molecule
+.cache
+
+#python virtualenv
+ansible/molecule/
