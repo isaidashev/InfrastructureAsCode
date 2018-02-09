@@ -7,12 +7,12 @@ HW13
  Vagrant умеет работать со многими провиженерами в том числе с ansible.
 
 ## Команды:
-`vagrant up` - создание виртуалок
-`vagrant box list` - список образов
-`vagrant status` - список запущеных виртуальных машин
-`vagrant ssh` - подключение к виртуалке
-`vagrant provisioner` - запуск провижен на работающей машине
-`vagrant destroy -f` - удаление созданых машин
+- `vagrant up` - создание виртуалок
+- `vagrant box list` - список образов
+- `vagrant status` - список запущеных виртуальных машин
+- `vagrant ssh` - подключение к виртуалке
+- `vagrant provisioner` - запуск провижен на работающей машине
+- `vagrant destroy -f` - удаление созданых машин
 
 [Vagrant Cloud](https://app.vagrantup.com/boxes) - место хранение образов
 
