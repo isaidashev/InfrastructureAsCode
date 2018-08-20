@@ -137,3 +137,6 @@ Host somehost
 ssh somehost
 
 Подключаемся ssh somehost
+
+3. Хостbastion, IP: 35.205.102.238, внутр. IP: 10.132.0.2
+   Хост: someinternalhost, внутр. IP: 10.132.0.3 
