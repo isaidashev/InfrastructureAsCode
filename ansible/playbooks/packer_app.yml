@@ -2,7 +2,8 @@
   hosts: all
   become: true
   roles:
-    - app
+  # Set path to role because packer list default Settings
+    - { role: '../roles/app' }
   # tasks:
   #   - name: Install ruby and Bundler
   #     apt:
