@@ -110,6 +110,8 @@ HW11
 * Один плейбук и много сценариев
 * Много плейбуков
 
+7. Ansible vault
+* Зашифровать только часть файла `ansible-vault encrypt_string "dummy" --vault-password-file pass-ansible.txt' после чего вывод использовать как значение переменой.
 
 Примеры команд:
 `ansible-playbook playbook.yml \      #указываем имя файла сценария
