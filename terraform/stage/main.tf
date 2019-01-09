@@ -1,8 +1,24 @@
-# Google provider settings
+#Google provider settings
 provider "google" {
   version = "1.4.0"
   project = "${var.project}"
   region  = "${var.region}"
+}
+
+# При использовании переменых не работает удаленый state
+terraform {
+  backend "gcs" {
+    project = "famous-buckeye-215911"
+    bucket  = "stage_state"
+    region  = "europe-west1"
+    path    = "stage/terraform.tfstate"
+  }
+}
+
+module "s3_bucket" {
+  source      = "git::https://github.com/SweetOps/terraform-google-storage-bucket.git?ref=master"
+  name        = ["stage_state"]
+  default_acl = "publicreadwrite"
 }
 
 module "app" {
@@ -27,8 +43,7 @@ module "vpc" {
   ports    = "22"
 
   #allow ip adress throw modules
-
-  source_ranges = ["93.157.234.154/32"]
+  source_ranges = ["0.0.0.0/0"]
 }
 
 module "vpc2" {
@@ -39,5 +54,5 @@ module "vpc2" {
 
   #allow ip adress throw modules
 
-  source_ranges = ["93.157.234.154/32"]
+  source_ranges = ["0.0.0.0/0"]
 }

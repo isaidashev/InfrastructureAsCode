@@ -6,6 +6,7 @@
 *.retry
 *.pem
 jdauphant.nginx
+packer/variables.json
 
 # Vagrant & molecule
 .vagrant/
